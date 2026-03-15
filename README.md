@@ -106,7 +106,10 @@ ClipTracker/
 │   ├── venv/                  ← virtual env (don't touch)
 │   ├── instance/
 │   │   └── ClipTracker.db       ← auto-created by Flask
-│   ├── app.py			 ← Flask backend (your server)
+│   ├── models.py           ← database tables live here
+│   ├── routes.py          ← API endpoints
+│   ├── app.py			 ← Flask backend (the server)
+│   ├── database.py       ← db initialization
 │   └── requirements.txt       ← optional but good practice
 │
 └── mobile/
