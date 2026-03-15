@@ -1,0 +1,12 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.db
+.vscode/
+
+
+# Node / Expo
+node_modules/
+.expo/
+.expo-shared/
