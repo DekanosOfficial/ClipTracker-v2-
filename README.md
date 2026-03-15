@@ -119,3 +119,45 @@ ClipTracker/
     ├── app.json
     └── package.json
 ```
+
+
+## 3. Database
+
+Your database has two tables:
+
+---
+
+**`customers`**
+| Column | Type | Description |
+|---|---|---|
+| `id` | Integer | Unique ID, auto-assigned |
+| `first_name` | String | Required |
+| `last_name` | String | Optional |
+| `phone_no` | String | Optional |
+| `visit_count` | Integer | Cuts in current cycle (0–10) |
+| `cycle_start_date` | DateTime | When the current 6-month cycle started |
+| `last_visit_date` | DateTime | Date of most recent cut |
+| `created_at` | DateTime | When the customer was added |
+
+---
+
+**`visits`**
+| Column | Type | Description |
+|---|---|---|
+| `id` | Integer | Unique ID, auto-assigned |
+| `customer_id` | Integer | Links to `customers.id` |
+| `visited_at` | DateTime | When the cut happened |
+| `discount_applied` | String | `"none"`, `"half_off"`, or `"free"` |
+| `notes` | String | Optional notes |
+
+---
+
+**How they relate:**
+- One customer → many visits (one-to-many)
+- Every time you tap "Log New Cut", a new row is added to `visits` and `visit_count` in `customers` goes up by 1
+- When `visit_count` hits 10 (free cut), it resets to 0 and `cycle_start_date` updates — starting a fresh cycle
+- If 6 months pass since `cycle_start_date`, the count also resets automatically
+
+---
+
+SQLite stores all of this in a single file — `instance/clipcount.db` — which gets created automatically when you first run `python app.py`.
